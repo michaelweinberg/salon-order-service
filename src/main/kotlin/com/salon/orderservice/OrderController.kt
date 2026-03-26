@@ -1,5 +1,6 @@
 package com.salon.orderservice
 
+import com.salon.orderservice.domain.CreateOrderResponse
 import com.salon.orderservice.domain.Order
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,7 +28,12 @@ class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createOrder(@RequestBody order: Order): Order {
-        return order.copy(status = order.status ?: "unconfirmed")
+    fun createOrder(@RequestBody order: Order): CreateOrderResponse {
+        val created = order.copy(status = order.status ?: "unconfirmed")
+        return CreateOrderResponse(
+            status = HttpStatus.CREATED.value(),
+            message = "Order created successfully",
+            order = created
+        )
     }
 }
