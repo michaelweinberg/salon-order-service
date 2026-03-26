@@ -1,5 +1,6 @@
 package com.salon.orderservice.domain
 
+// order model
 data class Order(
     val id: Int,
     val customer: String,
